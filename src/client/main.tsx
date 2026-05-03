@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
 import { fetchJson } from "@/client/api";
+import { ThemeProvider } from "@/client/theme-context";
 import { WikiConfigProvider, applyThemeVariables } from "@/client/wiki-config";
 import { DEFAULT_WIKI_OS_CONFIG, type WikiOsConfig } from "@/lib/wiki-config";
 
@@ -25,9 +26,11 @@ async function bootstrap() {
 
   createRoot(rootContainer).render(
     <StrictMode>
-      <WikiConfigProvider config={config}>
-        <RouterProvider router={router} />
-      </WikiConfigProvider>
+      <ThemeProvider>
+        <WikiConfigProvider config={config}>
+          <RouterProvider router={router} />
+        </WikiConfigProvider>
+      </ThemeProvider>
     </StrictMode>,
   );
 }

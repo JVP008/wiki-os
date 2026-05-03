@@ -46,6 +46,35 @@
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+/* Dark mode overrides */
+[data-theme="dark"] {
+  --background: #0d1117;
+  --background-tint: #161b22;
+  --foreground: #e6edf3;
+  --card: #161b22;
+  --card-foreground: #e6edf3;
+  --popover: #161b22;
+  --popover-foreground: #e6edf3;
+
+  --teal: #7ab3c9;
+  --teal-soft: #2c3b44;
+  --peach: #e6a679;
+  --peach-soft: #3d2d22;
+  --lavender: #b897e3;
+  --lavender-soft: #2a2336;
+
+  --primary: #e6edf3;
+  --primary-foreground: #0d1117;
+  --secondary: #21262d;
+  --secondary-foreground: #e6edf3;
+  --muted: #161b22;
+  --muted-foreground: #8b949e;
+  --accent: #3a3153;
+  --accent-foreground: #e6edf3;
+  --border: rgba(230, 237, 243, 0.08);
+  --ring: rgba(122, 179, 201, 0.45);
+}
+
 * {
   border-color: var(--border);
   -webkit-tap-highlight-color: transparent;
@@ -62,6 +91,17 @@ html {
   color-scheme: light;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {
@@ -134,10 +174,10 @@ html {
 }
 
 .prose-wiki a {
-  color: #4a6b8f;
+  color: var(--teal);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(132, 185, 201, 0.6);
+  text-decoration-color: color-mix(in srgb, var(--teal) 60%, transparent);
   text-decoration-thickness: 1.5px;
   transition: text-decoration-color 150ms var(--ease-out);
 }
@@ -165,15 +205,15 @@ html {
   overflow-x: auto;
   border-radius: 1rem;
   border: 1px solid var(--border);
-  background: #1a1825;
+  background: color-mix(in srgb, var(--background) 85%, var(--foreground) 15%);
   padding: 1.25rem;
-  box-shadow: 0 8px 24px -12px rgba(21, 19, 26, 0.25);
+  box-shadow: 0 8px 24px -12px color-mix(in srgb, var(--foreground) 25%, transparent);
 }
 
 .prose-wiki code:not(pre code) {
   border-radius: 0.4rem;
   background: var(--lavender-soft);
-  color: #5b4a7a;
+  color: color-mix(in srgb, var(--foreground) 70%, transparent);
   padding: 0.15rem 0.4rem;
   font-size: 0.9em;
   font-weight: 500;
@@ -191,41 +231,41 @@ html {
 
 /* Glass surface for cards — subtle tint with backdrop blur */
 .surface {
-  background: rgba(255, 255, 255, 0.72);
+  background: color-mix(in srgb, var(--card) 85%, var(--background) 15%);
   backdrop-filter: blur(20px) saturate(1.1);
   -webkit-backdrop-filter: blur(20px) saturate(1.1);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 8px 24px -12px rgba(21, 19, 26, 0.12);
+    0 1px 0 color-mix(in srgb, var(--card) 90%, transparent) inset,
+    0 8px 24px -12px color-mix(in srgb, var(--foreground) 12%, transparent);
 }
 
 .surface-raised {
-  background: rgba(255, 255, 255, 0.88);
+  background: color-mix(in srgb, var(--card) 95%, var(--background) 5%);
   backdrop-filter: blur(24px) saturate(1.2);
   -webkit-backdrop-filter: blur(24px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 12px 40px -16px rgba(21, 19, 26, 0.18),
-    0 4px 12px -6px rgba(196, 167, 231, 0.2);
+    0 1px 0 color-mix(in srgb, var(--card) 100%, transparent) inset,
+    0 12px 40px -16px color-mix(in srgb, var(--foreground) 18%, transparent),
+    0 4px 12px -6px color-mix(in srgb, var(--ring) 40%, transparent);
 }
 
 /* Accent chip variants */
 .chip-teal {
   background: var(--teal-soft);
-  color: #3e6978;
-  border: 1px solid rgba(133, 185, 201, 0.4);
+  color: color-mix(in srgb, var(--foreground) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--teal) 40%, transparent);
 }
 .chip-peach {
   background: var(--peach-soft);
-  color: #9a5a2f;
-  border: 1px solid rgba(244, 177, 131, 0.4);
+  color: color-mix(in srgb, var(--foreground) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--peach) 40%, transparent);
 }
 .chip-lavender {
   background: var(--lavender-soft);
-  color: #5b4a7a;
-  border: 1px solid rgba(196, 167, 231, 0.4);
+  color: color-mix(in srgb, var(--foreground) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lavender) 40%, transparent);
 }
 
 @keyframes fadeInUp {

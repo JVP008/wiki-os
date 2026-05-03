@@ -12,6 +12,7 @@ import { Link, useRevalidator } from "react-router-dom";
 
 import { useWikiConfig } from "@/client/wiki-config";
 import { HighlightedText, buildHighlightQuery } from "@/components/highlighted-text";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { slugFromFileName, titleFromFileName, type SearchResult, type PageSummary } from "@/lib/wiki-shared";
 
 function SearchInput({
@@ -243,6 +244,7 @@ export function SearchBox({
           >
             {config.navigation.statsLabel}
           </Link>
+          <ThemeToggle />
         </div>
       </header>
 
